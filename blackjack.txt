@@ -1,6 +1,8 @@
 Algoritmo Blackjack
-    Dimensión cartas[52]
-    Definir puntosJugador, puntosCasa Como Entero
+    definir arreglos:
+    cartas[52]
+    Definir variables:
+    Entero: puntosJugador, puntosCasa
     Definir opcion, valorAs Como Caracter
     Definir seguirJugando Como Logico
     Definir indiceCarta, j, temp Como Entero
