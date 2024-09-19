@@ -1,0 +1,161 @@
+Algoritmo Blackjack
+    Dimensión cartas[52]
+    Definir puntosJugador, puntosCasa Como Entero
+    Definir opcion, valorAs Como Caracter
+    Definir seguirJugando Como Logico
+    Definir indiceCarta, j, temp Como Entero
+
+    puntosJugador <- 0
+    puntosCasa <- 0
+    seguirJugando <- Verdadero
+
+    Para i <- 1 Hasta 52 Con Paso 1 Hacer
+        Si i % 13 = 0 Entonces
+            cartas[i] <- 10
+        Sino Si i % 13 >= 10 Entonces
+                cartas[i] <- 10
+            Sino Si i % 13 = 1 Entonces
+                    artas[i] <- 11
+                Sino
+                    cartas[i] <- i % 13
+                FinSi
+            FinSi
+        FinSi
+    FinPara
+
+    Para i <- 1 Hasta 52 Hacer
+        j <- Azar(52) + 1
+        temp <- cartas[i]
+        cartas[i] <- cartas[j]
+        cartas[j] <- temp
+    FinPara
+
+    indiceCarta <- 1
+
+    puntosJugador <- cartas[indiceCarta]
+    Si cartas[indiceCarta] = 11 Entonces
+        Escribir "Has sacado un As. Quieres que sea 1 o 11? (1/11): "
+        Leer valorAs
+        Si valorAs = "1" Entonces
+            puntosJugador <- 1
+        Sino
+            puntosJugador <- 11
+        FinSi
+    Sino
+        puntosJugador <- puntosJugador
+    FinSi
+    indiceCarta <- indiceCarta + 1
+
+    puntosCasa <- cartas[indiceCarta]
+    Si cartas[indiceCarta] = 11 Entonces
+        Escribir "La casa ha sacado un As. Quieres que sea 1 o 11? (1/11): "
+        Leer valorAs
+        Si valorAs = "1" Entonces
+            puntosCasa <- 1
+        Sino
+            puntosCasa <- 11
+        FinSi
+    Sino
+        puntosCasa <- puntosCasa
+    FinSi
+    indiceCarta <- indiceCarta + 1
+
+    puntosJugador <- puntosJugador + cartas[indiceCarta]
+    Si cartas[indiceCarta] = 11 Entonces
+        Escribir "Has sacado un As. Quieres que sea 1 o 11? (1/11): "
+        Leer valorAs
+        Si valorAs = "1" Entonces
+            puntosJugador <- puntosJugador + 1
+        Sino
+            puntosJugador <- puntosJugador + 11
+        FinSi
+    Sino
+        puntosJugador <- puntosJugador + cartas[indiceCarta]
+    FinSi
+    indiceCarta <- indiceCarta + 1
+
+    puntosCasa <- puntosCasa + cartas[indiceCarta]
+    Si cartas[indiceCarta] = 11 Entonces
+        Escribir "La casa ha sacado un As. Quieres que sea 1 o 11? (1/11): "
+        Leer valorAs
+        Si valorAs = "1" Entonces
+            puntosCasa <- puntosCasa + 1
+        Sino
+            puntosCasa <- puntosCasa + 11
+        FinSi
+    Sino
+        puntosCasa <- puntosCasa + cartas[indiceCarta]
+    FinSi
+    indiceCarta <- indiceCarta + 1
+
+    Escribir "Tus puntos: ", puntosJugador
+    Escribir "Puntos de la casa: ", puntosCasa - cartas[indiceCarta - 1]
+
+    Mientras puntosJugador < 21 Y seguirJugando Hacer
+        Escribir "Quieres otra carta? (s/n): "
+        Leer opcion
+        Si opcion = "s" Entonces
+            Si indiceCarta <= 52 Entonces
+                puntosJugador <- puntosJugador + cartas[indiceCarta]
+                Si cartas[indiceCarta] = 11 Entonces
+                    Escribir "Has sacado un As. Quieres que sea 1 o 11? (1/11): "
+                    Leer valorAs
+                    Si valorAs = "1" Entonces
+                        puntosJugador <- puntosJugador + 1
+                    Sino
+                        puntosJugador <- puntosJugador + 11
+                    FinSi
+                Sino
+                    puntosJugador <- puntosJugador + cartas[indiceCarta]
+                FinSi
+                indiceCarta <- indiceCarta + 1
+                Escribir "Tus puntos: ", puntosJugador
+            Sino
+                Escribir "No hay más cartas disponibles."
+                seguirJugando <- Falso
+            FinSi
+        Sino
+            seguirJugando <- Falso
+        FinSi
+    FinMientras
+
+    Si puntosJugador <= 21 Entonces
+        Mientras puntosCasa < 17 Hacer
+            Si indiceCarta <= 52 Entonces
+                puntosCasa <- puntosCasa + cartas[indiceCarta]
+                Si cartas[indiceCarta] = 11 Entonces
+                    Escribir "La casa ha sacado un As. Quieres que sea 1 o 11? (1/11): "
+                    Leer valorAs
+                    Si valorAs = "1" Entonces
+                        puntosCasa <- puntosCasa + 1
+                    Sino
+                        puntosCasa <- puntosCasa + 11
+                    FinSi
+                Sino
+                    puntosCasa <- puntosCasa + cartas[indiceCarta]
+                FinSi
+                indiceCarta <- indiceCarta + 1
+            Sino
+                Escribir "No hay más cartas disponibles."
+            FinSi
+        FinMientras
+    FinSi
+
+    Escribir "Tus puntos finales: ", puntosJugador
+    Escribir "Puntos finales de la casa: ", puntosCasa
+
+    Si puntosJugador > 21 Entonces
+        Escribir "Te has pasado de 21. Pierdes"
+    Sino Si puntosCasa > 21 Entonces
+            Escribir "La casa se ha pasado de 21. Ganas"
+        Sino Si puntosJugador > puntosCasa Entonces
+                Escribir "Ganas"
+            Sino Si puntosJugador < puntosCasa Entonces
+                    Escribir "Pierdes."
+                Sino
+                    Escribir "Empate."
+                FinSi
+            FinSi
+        FinSi
+    finsi
+FinAlgoritmo
